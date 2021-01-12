@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
+import 'answer.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,8 +27,37 @@ class ComSciQuiz extends StatefulWidget {
 }
 
 class _ComSciQuizState extends State<ComSciQuiz> {
-  String questionText = "สาขาที่นักศึกษาชอบเรียน?";
-  String answerText = "วิทยาการคอมพิวเตอร์";
+  int questionIndex = 0;
+  int choiceIndex = 0;
+  int totalScore = 0;
+
+  final _questions = const [
+    {
+      'questionText': "สาขาที่นักศึกษาชอบเรียน?",
+      'choices': ["วิทยาการคอมพิวเตอร์", "Computer Science", "ComSci", "Cs"],
+      'scores': [5, 5, 3, 2]
+    },
+    {
+      'questionText': "ภาษาโปรแกรมที่นักศึกษาชอบ?",
+      'choices': ["HTML", "C++", "SQL", "Java"],
+      'scores': [1, 2, 3, 5]
+    },
+    {
+      'questionText': "วิชาที่คิดว่ายากที่สุด?",
+      'choices': ["แคลคูลัส", "Flutter", "โครงสร้างข้อมูล", "โครงสร้างดิสครีต"],
+      'scores': [5, 4, 3, 5]
+    },
+  ];
+
+  void _answerQuestion() {
+    setState(() {
+      questionIndex = questionIndex + 1;
+      if (questionIndex >= _questions.length) {
+        questionIndex = 0;
+      }
+      print("Question : ");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,115 +69,11 @@ class _ComSciQuizState extends State<ComSciQuiz> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(10),
-              child: Text(
-                questionText,
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 70,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: new BoxDecoration(
-                color: Colors.lightBlue[200],
-                borderRadius: new BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.black,
-                child: Text(
-                  answerText,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  print("We love ComSci.");
-                },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 70,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: new BoxDecoration(
-                color: Colors.lightBlue[200],
-                borderRadius: new BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.black,
-                child: Text(
-                  answerText,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  print("We love ComSci.");
-                },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 70,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: new BoxDecoration(
-                color: Colors.lightBlue[200],
-                borderRadius: new BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.black,
-                child: Text(
-                  answerText,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  print("We love ComSci.");
-                },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 70,
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(10),
-              decoration: new BoxDecoration(
-                color: Colors.lightBlue[200],
-                borderRadius: new BorderRadius.all(
-                  const Radius.circular(10.0),
-                ),
-              ),
-              child: RaisedButton(
-                color: Colors.white,
-                textColor: Colors.black,
-                child: Text(
-                  answerText,
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  print("We love ComSci.");
-                },
-              ),
-            ),
+            Question(_questions[questionIndex]['questionText']),
+            Answer(_answerQuestion, _questions[questionIndex]['choices'], 0),
+            Answer(_answerQuestion, _questions[questionIndex]['choices'], 1),
+            Answer(_answerQuestion, _questions[questionIndex]['choices'], 2),
+            Answer(_answerQuestion, _questions[questionIndex]['choices'], 3),
           ],
         ),
       ),
