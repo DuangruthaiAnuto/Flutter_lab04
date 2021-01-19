@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
-import 'answer.dart';
+import 'package:flutter_04/csquiz.dart';
+import 'csquiz.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,13 +49,16 @@ class _ComSciQuizState extends State<ComSciQuiz> {
     },
   ];
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     setState(() {
       questionIndex = questionIndex + 1;
-      if (questionIndex >= _questions.length) {
-        questionIndex = 0;
-      }
-      print("Question : ");
+      totalScore = totalScore + score;
+      //if (questionIndex >= _questions.length) {
+      // questionIndex = 0;
+      //totalScore = 0;
+      //}
+      print("Question : $questionIndex");
+      print("Total Score : $totalScore");
     });
   }
 
@@ -66,16 +69,16 @@ class _ComSciQuizState extends State<ComSciQuiz> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Question(_questions[questionIndex]['questionText']),
-            Answer(_answerQuestion, _questions[questionIndex]['choices'], 0),
-            Answer(_answerQuestion, _questions[questionIndex]['choices'], 1),
-            Answer(_answerQuestion, _questions[questionIndex]['choices'], 2),
-            Answer(_answerQuestion, _questions[questionIndex]['choices'], 3),
-          ],
-        ),
+        child: (questionIndex < _questions.length)
+            ? CsQuiz(_questions, questionIndex, _answerQuestion)
+            : Text(
+                "Your Score: $totalScore",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
       ),
     );
   }
