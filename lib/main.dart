@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_04/csquiz.dart';
 import 'csquiz.dart';
+import 'report.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,12 +35,12 @@ class _ComSciQuizState extends State<ComSciQuiz> {
     {
       'questionText': "สาขาที่นักศึกษาชอบเรียน?",
       'choices': ["วิทยาการคอมพิวเตอร์", "Computer Science", "ComSci", "Cs"],
-      'scores': [5, 5, 3, 2]
+      'scores': [5, 4, 3, 2]
     },
     {
       'questionText': "ภาษาโปรแกรมที่นักศึกษาชอบ?",
       'choices': ["HTML", "C++", "SQL", "Java"],
-      'scores': [1, 2, 3, 5]
+      'scores': [1, 5, 3, 4]
     },
     {
       'questionText': "วิชาที่คิดว่ายากที่สุด?",
@@ -69,17 +69,9 @@ class _ComSciQuizState extends State<ComSciQuiz> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: (questionIndex < _questions.length)
-            ? CsQuiz(_questions, questionIndex, _answerQuestion)
-            : Text(
-                "Your Score: $totalScore",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              ),
-      ),
+          child: (questionIndex < _questions.length)
+              ? CsQuiz(_questions, questionIndex, _answerQuestion)
+              : Report(totalScore)),
     );
   }
 }
